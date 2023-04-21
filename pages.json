@@ -38,9 +38,8 @@
 			"style": {
 
 				"navigationBarTitleText": "个人中心",
-				"enablePullDownRefresh": true
-					// #ifdef MP || APP-PLUS
-					,
+				"enablePullDownRefresh": true,
+				// #ifdef MP || APP-PLUS
 				"navigationStyle": "custom",
 				// "navigationBarBackgroundColor": "#e93323",
 				"navigationBarTextStyle": "black"
@@ -48,6 +47,18 @@
 			}
 		},
 		{
+			"path": "pages/goods_details_store/index",
+			"style": {
+				"navigationBarTitleText": "门店列表",
+				"app-plus": {
+					// #ifdef APP-PLUS
+					"titleNView": {
+						"type": "default"
+					}
+					// #endif
+				}
+			}
+		}, {
 			"path": "pages/goods_cate/goods_cate",
 			"style": {
 				"navigationBarTitleText": "商品分类",
@@ -58,10 +69,8 @@
 					}
 					// #endif
 				}
-
 			}
 		}
-
 	],
 	"subPackages": [{ // 模块分包
 			"root": "pages/extension",
@@ -135,6 +144,19 @@
 							// #endif
 						}
 					}
+				},
+				{
+					"path": "goods_search_position/index",
+					"style": {
+						"navigationBarTitleText": "选择收货位置",
+						"app-plus": {
+							// #ifdef APP-PLUS
+							"titleNView": {
+								"type": "default"
+							}
+							// #endif
+						}
+					}
 				}, {
 					"path": "order_pay_status/index",
 					"style": {
@@ -187,18 +209,6 @@
 					"path": "goods_comment_list/index",
 					"style": {
 						"navigationBarTitleText": "商品评分",
-						"app-plus": {
-							// #ifdef APP-PLUS
-							"titleNView": {
-								"type": "default"
-							}
-							// #endif
-						}
-					}
-				}, {
-					"path": "goods_details_store/index",
-					"style": {
-						"navigationBarTitleText": "门店列表",
 						"app-plus": {
 							// #ifdef APP-PLUS
 							"titleNView": {
@@ -1543,6 +1553,12 @@
 				"text": "首页"
 			},
 			{
+				"pagePath": "pages/goods_details_store/index",
+				"iconPath": "static/images/5-001.png",
+				"selectedIconPath": "static/images/5-002.png",
+				"text": "门店"
+			},
+			{
 				"pagePath": "pages/goods_cate/goods_cate",
 				"iconPath": "static/images/2-001.png",
 				"selectedIconPath": "static/images/2-002.png",
@@ -1562,6 +1578,16 @@
 			}
 		]
 	},
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置将用于查看附近门店"
+		}
+	},
+	"requiredPrivateInfos": [
+		"getLocation",
+		"chooseAddress",
+		"chooseLocation"
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "加载中",

@@ -8,18 +8,21 @@
 			<view class="swiger">{{titleInfo.length ? $t(titleInfo[0].val) : ''}}</view>
 			<view class="input acea-row row-middle fillet skeleton-rect" hover-class="none" @click="goPage"><text
 					class="iconfont icon-sousuo"></text>
-				{{$t('搜索商品')}}</view>
+				{{$t('搜索商品')}}
+			</view>
 		</view>
 	</view>
 	<view v-else-if="isIframe" class="header">
 		<view class="serch-wrapper acea-row row-middle">
+			<view class="logo-text">{{position}}</view><uni-icons type="bottom" size="30" />
 			<view class="logo">
 				<image :src="logoConfig" mode="heightFix"></image>
 			</view>
 			<view class="swiger">{{titleInfo.length ? titleInfo[0].val : ''}}</view>
 			<view class="input acea-row row-middle fillet" hover-class="none" @click="goPage"><text
 					class="iconfont icon-sousuo"></text>
-				{{$t('搜索商品')}}</view>
+				{{$t('搜索商品')}}
+			</view>
 		</view>
 	</view>
 	<!-- #endif -->
@@ -29,13 +32,17 @@
 			<view class="sys-head" :style="{height:sysHeight}"></view>
 			<view class="serch-box" style="height: 48px;">
 				<view class="serch-wrapper row-middle">
+					<view class="logo-text" @click.stop="positions">{{position}}<uni-icons type="right" size="15"
+							color="#fff" />
+					</view>
 					<view class="logo">
 						<image class="skeleton-rect" :src="logoConfig" mode="heightFix"></image>
 					</view>
-					<view class="swiger">{{titleInfo.length ? titleInfo[0].val : ''}}</view>
+					<!-- <view class="swiger">{{titleInfo.length ? titleInfo[0].val : ''}}</view> -->
 					<navigator url="/pages/goods/goods_search/index" class="input acea-row row-middle fillet"
 						hover-class="none"><text class="iconfont icon-sousuo"></text>
-						{{$t('搜索商品')}}</navigator>
+						{{$t('搜索商品')}}
+					</navigator>
 				</view>
 			</view>
 		</view>
@@ -56,7 +63,11 @@
 			dataConfig: {
 				type: Object,
 				default: () => {}
-			}
+			},
+			position: {
+				type: String,
+				default: '南昌'
+			},
 		},
 		data() {
 			return {
@@ -103,6 +114,27 @@
 						url: '/pages/goods/goods_search/index'
 					})
 				})
+			},
+			positions() {
+				goPage().then(res => {
+					uni.navigateTo({
+						url: '/pages/goods/goods_search_position/index'
+					})
+				})
+				// uni.chooseLocation({
+				// 	success: function(res) {
+				// 		this.position = res.name;
+				// 		uni.setStorageSync("position", res.name)
+				// 		console.log(uni.getStorageSync("position"))
+				// 		// this.$nextTick({
+				// 		// 	that.$emit()
+				// 		// })
+				// 	}
+				// });
+				// // this.$nextTick({
+				// // 	this.$emit('positions', this.position)
+				// // })
+				// this.$emit('positions', this.position)
 			}
 		}
 	}
@@ -126,13 +158,25 @@
 				display: flex;
 				align-items: flex-end;
 				justify-content: center;
+
 				image {
 					width: 144rpx;
 					height: 50rpx;
 				}
-
-				
 			}
+
+			.logo-text {
+				position: absolute;
+				max-width: 250rpx;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+				color: #fff;
+				line-height: 54upx;
+				font-size: 26rpx;
+			}
+
 			.swiger {
 				color: #fff;
 				font-size: 24rpx;
@@ -205,6 +249,19 @@
 					height: 50rpx;
 				}
 			}
+
+			.logo-text {
+				position: absolute;
+				max-width: 250rpx;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				text-align: center;
+				color: #fff;
+				line-height: 54upx;
+				font-size: 26rpx;
+			}
+
 			.swiger {
 				color: #fff;
 				font-size: 24rpx;

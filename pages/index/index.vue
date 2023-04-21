@@ -33,6 +33,7 @@
 		},
 		onShow() {
 			this.getVersion(0);
+			this.$refs.vis.positions()
 		},
 		onHide() {
 			// this.isDiy = -1

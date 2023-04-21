@@ -116,7 +116,7 @@
 				uni.switchTab({
 					url: item.link,
 					fail(err) {
-						uni.redirectTo({
+						uni.switchTab({
 							url: item.link
 						})
 					}

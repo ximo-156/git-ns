@@ -30,7 +30,8 @@
 		<!-- 顶部搜索 -->
 		<view class="skeleton" id="pageIndexs" :style="{ visibility: showSkeleton ? 'hidden' : 'visible' }">
 			<headerSerch class="mp-header skeleton" :dataConfig="headerSerch.default"
-				@click.native="bindEdit('headerSerch', 'default')"></headerSerch>
+				@click.native="bindEdit('headerSerch', 'default')" :position="position" ref="header">
+			</headerSerch>
 			<!-- 轮播 -->
 			<swiperBg :dataConfig="swiperBg.default" @click.native="bindEdit('swiperBg', 'default')"></swiperBg>
 			<!-- 金刚区 -->
@@ -220,6 +221,7 @@
 		mixins: [colors],
 		data() {
 			return {
+				position: "九江",
 				imgHost: HTTP_REQUEST_URL,
 				showSkeleton: true, //骨架屏显示隐藏
 				isNodes: 0, //控制什么时候开始抓取元素节点,只要数值改变就重新抓取
@@ -278,9 +280,9 @@
 				isFixed: false,
 			};
 		},
-
 		created() {
 			uni.hideTabBar();
+			this.position = uni.getStorageSync('position') || "南昌"
 			// #ifdef APP-PLUS
 			uni.setStorageSync("privacyStatus", true);
 			// try {
@@ -292,7 +294,6 @@
 			// this.$nextTick(() => {
 			// 	// this.$refs.appUpdate.update(); //调用子组件 检查更新
 			// });
-
 			// #endif
 			let that = this;
 			// #ifdef H5
@@ -352,6 +353,9 @@
 			}
 		},
 		methods: {
+			positions() {
+				this.position = uni.getStorageSync('position') || "绿地外滩公馆19栋"
+			},
 			// #ifdef APP-PLUS
 			// 同意隐私协议
 			confirmApp() {

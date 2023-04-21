@@ -1,9 +1,9 @@
 {
-    "name" : "南顺网络",
+    "name" : "南昌同城购物",
     "appid" : "__UNI__F8791D7",
     "description" : "南顺网络演示系统",
-    "versionName" : "4.7.0",
-    "versionCode" : 470,
+    "versionName" : "4.7.3",
+    "versionCode" : 473,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -26,7 +26,8 @@
             "Payment" : {},
             "Share" : {},
             "VideoPlayer" : {},
-            "OAuth" : {}
+            "OAuth" : {},
+            "Geolocation" : {}
         },
         "safearea" : {
             "bottom" : {
@@ -123,10 +124,8 @@
                 },
                 "ad" : {},
                 "geolocation" : {
-                    "amap" : {
-                        "__platform__" : [ "ios", "android" ],
-                        "appkey_ios" : "aeb768547b9d752891e37e1ca0a2b66d",
-                        "appkey_android" : "41ec5c3f4d110ce02a326210fe147be8"
+                    "system" : {
+                        "__platform__" : [ "ios", "android" ]
                     }
                 },
                 "statics" : {
@@ -179,24 +178,23 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wxd9bfac95aac17292",
+        "appid" : "wx0d881a5d0c890551",
         "setting" : {
             "urlCheck" : false,
             "minified" : true,
             "postcss" : true,
             "es6" : true
         },
-        "permission" : {},
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置将用于查看附近门店"
+            }
+        },
+        "requiredPrivateInfos" : [ "getLocation", "chooseAddress", "chooseLocation", "choosePoi" ],
         "optimization" : {
             "subPackages" : true
         },
-        "usingComponents" : true,
-        "requiredPrivateInfos" : [
-            "getLocation",
-            "onLocationChange",
-            "startLocationUpdateBackground",
-            "chooseAddress"
-        ]
+        "usingComponents" : true
     },
     "mp-alipay" : {
         "usingComponents" : true

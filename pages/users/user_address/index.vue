@@ -20,15 +20,17 @@
 								@columnchange="bindMultiPickerColumnChange" :value="valueRegion" :range="multiArray">
 								<view class='acea-row'>
 									<view class="picker">{{region[0]}}，{{region[1]}}，{{region[2]}}</view>
-									<view class='iconfont icon-dizhi fontcolor'></view>
+									<view @click.stop="iconfontclk" class='iconfont icon-dizhi fontcolor'></view>
 								</view>
 							</picker>
 						</view>
 					</view>
 					<view class='item acea-row row-between-wrapper'>
 						<view class='name'>{{$t(`详细地址`)}}</view>
-						<input type='text' :placeholder='$t(`请填写具体地址`)' name='detail' placeholder-class='placeholder'
-							:value='userAddress.detail'></input>
+						<textarea style="width: 69%; height:60px" :placeholder='$t(`请填写具体地址`)' name='detail'
+							placeholder-class='placeholder' v-model='userAddress.detail'></textarea>
+						<!-- <input type='' :placeholder='$t(`请填写具体地址`)' name='detail' placeholder-class='placeholder'
+							v-model='userAddress.detail'></input> -->
 					</view>
 				</view>
 				<view class='default acea-row row-middle' @click='ChangeIsDefault'>
@@ -92,7 +94,8 @@
 				couponId: 0, //优惠券id
 				id: 0, //地址id
 				userAddress: {
-					is_default: false
+					is_default: false,
+					detail: ""
 				}, //地址详情
 				region: [this.$t(`省`), this.$t(`市`), this.$t(`区`)],
 				valueRegion: [0, 0, 0],
@@ -143,6 +146,22 @@
 				this.region = region
 			},
 			// #endif
+
+			iconfontclk() {
+				wx.choosePoi({
+					success: (res) => {
+						let str = '区' || '县' || '乡' || '市';
+						let address = res.address;
+						let len = address.lastIndexOf(str) + 1;
+						let add_ress = address.slice(-1, len + 1);
+						let arr = address.split(str)
+						if (res.type === 2) {
+							this.userAddress.detail = arr[1] + (res.name);
+						}
+						console.log(add_ress, arr[1])
+					}
+				})
+			},
 			// 回去地址数据
 			getCityList: function() {
 				let that = this;
@@ -183,6 +202,7 @@
 
 			},
 			bindRegionChange: function(e) {
+				console.log(456)
 				let multiIndex = this.multiIndex,
 					province = this.district[multiIndex[0]] || {
 						c: []
@@ -202,6 +222,7 @@
 				this.initialize();
 			},
 			bindMultiPickerColumnChange: function(e) {
+				console.log(123)
 				let that = this,
 					column = e.detail.column,
 					value = e.detail.value,
@@ -308,8 +329,10 @@
 											uni.navigateTo({
 												url: '/pages/goods/order_confirm/index?cartId=' +
 													cartId +
-													'&addressId=' + (
-														that.id ? that
+													'&addressId=' +
+													(
+														that.id ?
+														that
 														.id :
 														res.data
 														.id) +
@@ -319,7 +342,8 @@
 													couponId +
 													'&new=' + that
 													.news +
-													'&noCoupon=' + that
+													'&noCoupon=' +
+													that
 													.noCoupon
 											});
 										} else {
@@ -398,7 +422,8 @@
 									that.couponId = '';
 									uni.navigateTo({
 										url: '/pages/goods/order_confirm/index?cartId=' +
-											cartId + '&addressId=' + (that.id ? that.id :
+											cartId + '&addressId=' + (that.id ? that
+												.id :
 												res.data
 												.id) + '&pinkId=' + pinkId +
 											'&couponId=' +
@@ -477,7 +502,8 @@
 							that.couponId = '';
 							uni.navigateTo({
 								url: '/pages/goods/order_confirm/index?new=' + that.news +
-									'&cartId=' + cartId + '&addressId=' + (that.id ? that.id :
+									'&cartId=' + cartId + '&addressId=' + (that.id ? that
+										.id :
 										res.data.id) + '&pinkId=' + pinkId + '&couponId=' +
 									couponId +
 									'&noCoupon=' + that

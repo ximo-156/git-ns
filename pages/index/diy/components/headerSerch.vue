@@ -9,21 +9,25 @@
 			<navigator url="/pages/goods/goods_search/index" class="input acea-row row-middle skeleton-rect"
 				:class="[boxStyle?'':'fillet',logoConfig?'':'on',txtStyle?'row-center':'']" hover-class="none"><text
 					class="iconfont icon-sousuo"></text>
-				{{$t(`搜索商品`)}}</navigator>
+				{{$t(`搜索商品`)}}
+			</navigator>
 		</view>
 	</view>
 	<!-- #endif -->
 	<!-- #ifdef MP || APP-PLUS -->
 	<view v-if="special" class="header"
 		:style="'background: linear-gradient(90deg, '+ bgColor[0].item +' 50%, '+ bgColor[1].item +' 100%);margin-top:'+ mbConfig*2 +'rpx;'">
+
 		<view class="serch-wrapper acea-row row-middle" :style="'padding-left:'+ prConfig*2 +'rpx;'">
+
 			<view class="logo skeleton-rect" v-if="logoConfig">
 				<image :src="logoConfig" mode="heightFix"></image>
 			</view>
 			<navigator url="/pages/goods/goods_search/index" class="input acea-row row-middle skeleton-rect"
 				:class="[boxStyle?'':'fillet',logoConfig?'':'on',txtStyle?'row-center':'']" hover-class="none"><text
 					class="iconfont icon-sousuo"></text>
-				{{$t(`搜索商品名称`)}}</navigator>
+				{{$t(`搜索商品名称`)}}
+			</navigator>
 		</view>
 	</view>
 	<view v-else>
@@ -109,6 +113,7 @@
 				margin-right: 20rpx;
 				width: 154rpx;
 				text-align: center;
+
 				image {
 					width: 100%;
 					height: 100%;
@@ -145,6 +150,7 @@
 			}
 		}
 	}
+
 	/* #ifdef MP || APP-PLUS */
 	.mp-header {
 		z-index: 30;
@@ -161,10 +167,12 @@
 			/* #endif */
 			/* #ifdef APP-PLUS */
 			padding: 0 50rpx 0 40rpx;
-      /* #endif */
+
+			/* #endif */
 			.logo {
 				height: 60rpx;
 				margin-right: 30rpx;
+
 				image {
 					width: 100%;
 					height: 100%;

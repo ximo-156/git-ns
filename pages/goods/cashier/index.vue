@@ -177,7 +177,6 @@
 					title: this.$t(`创建订单中`)
 				});
 				getCashierOrder(this.orderId, this.fromType).then(res => {
-					console.log(res)
 					this.payPrice = this.payPriceShow = res.data.pay_price
 					this.payPostage = res.data.pay_postage
 					this.offlinePostage = res.data.offline_postage
