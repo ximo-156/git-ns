@@ -36,14 +36,12 @@
 		{
 			"path": "pages/user/index",
 			"style": {
-
-				"navigationBarTitleText": "个人中心",
-				"enablePullDownRefresh": true,
 				// #ifdef MP || APP-PLUS
 				"navigationStyle": "custom",
-				// "navigationBarBackgroundColor": "#e93323",
-				"navigationBarTextStyle": "black"
+				"navigationBarTextStyle": "black",
 				// #endif
+				"navigationBarTitleText": "个人中心",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -542,8 +540,8 @@
 					"style": {
 						"navigationBarTitleText": "签到",
 						// #ifdef MP
-						// "navigationBarTextStyle": "white",
-						// "navigationBarBackgroundColor": "#e93323"
+						"navigationBarTextStyle": "white",
+						"navigationBarBackgroundColor": "#e93323",
 						// #endif
 						"app-plus": {
 							// #ifdef APP-PLUS

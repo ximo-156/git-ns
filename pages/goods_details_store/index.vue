@@ -1,7 +1,7 @@
 <template>
 	<div :style="colorStyle">
 		<div class="storeBox" ref="container">
-			<div v-for="(item, index) in storeList" :key="index" @click.stop="checked(item)">
+			<div v-for="(item, index) in storeList" :key="index" class="store-Box">
 				<div class="storeBox-box">
 					<div class="store-img"><img :src="item.image" lazy-load="true" /></div>
 					<div class="store-cent-left">
@@ -30,13 +30,12 @@
 				</div>
 				<!-- #ifdef MP || APP-PLUS -->
 				<div class="below-top">
-					<div class="below" v-for="(chr, index) in 6" :key="index" @click.stop="goDetail(chr)">
+					<div class="below" v-for="(chr, index) in product_list" :key="index" @click.stop="goDetail(chr)">
 						<div class="image">
-							<img src="https://shopv4.jxnswl.cn/uploads/attach/2023/04/20230426/12248500f72cab90fb16d6534d0792f9.jpg"
-								alt="" srcset="" />
+							<img :src="chr.image" alt="" srcset="" />
 						</div>
 						<div class="price">
-							5590
+							{{chr.price}}
 							<span class="us">￥</span>
 						</div>
 					</div>
@@ -56,6 +55,9 @@
 		goShopDetail,
 		goPage
 	} from '@/libs/order.js'
+	import {
+		getHomeProducts
+	} from '@/api/store.js'
 	import tabBar from "@/pages/index/visualization/components/tabBar.vue";
 	import pageFooter from '@/components/pageFooter/index.vue'
 	import Loading from "@/components/Loading";
@@ -88,11 +90,8 @@
 		mixins: [colors],
 		data() {
 			return {
-				// product_list: [{
-				// 	image: "https://shopv4.jxnswl.cn/uploads/attach/2023/04/20230426/12248500f72cab90fb16d6534d0792f9.jpg",
-				// 	keyword: "美的,冰箱",
-				// 	price: "5599.00",
-				// }],
+				product_list: [],
+				page: 1,
 				is_diy: uni.getStorageSync('is_diy'),
 				limit: 20,
 				loaded: false,
@@ -104,10 +103,14 @@
 			};
 		},
 		onLoad() {
+			this.getHome()
 			try {
 				this.user_latitude = uni.getStorageSync('user_latitude');
 				this.user_longitude = uni.getStorageSync('user_longitude');
 			} catch (e) {}
+		},
+		onShow() {
+			this.getHome()
 		},
 		mounted() {
 			if (this.user_latitude && this.user_longitude) {
@@ -117,6 +120,20 @@
 			}
 		},
 		methods: {
+			// 获取商品列表
+			getHome() {
+				let data = {
+					page: 1,
+					limit: 6,
+				}
+				getHomeProducts(data).then(res => {
+					this.product_list = res.data.list;
+					this.getList()
+				}).catch(err => {
+					0
+					console.log(err)
+				})
+			},
 			goDetail(item) {
 				goPage().then(res => {
 					goShopDetail(item, this.uid).then(res => {
@@ -198,6 +215,7 @@
 			// 获取门店列表数据
 			getList: function() {
 				if (this.loading || this.loaded) return;
+				console.log("123")
 				this.loading = true;
 				let data = {
 					latitude: this.user_latitude || "", //纬度
@@ -236,8 +254,15 @@
 
 	.storeBox {
 		width: 100%;
-		background-color: #fff;
-		padding: 0 30rpx;
+		padding: 0 10rpx 160rpx;
+
+		.store-Box {
+			padding: 10px;
+			background-color: #fff;
+			margin: 20rpx 0 0;
+			box-sizing: border-box;
+			border-radius: 20rpx;
+		}
 
 		.below-top {
 			overflow-x: scroll;
@@ -293,7 +318,7 @@
 		height: auto;
 		display: flex;
 		align-items: center;
-		padding: 23rpx 0;
+		padding: 23rpx;
 		justify-content: space-between;
 		border-bottom: 1px solid #eee;
 	}

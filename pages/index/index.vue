@@ -33,7 +33,10 @@
 		},
 		onShow() {
 			this.getVersion(0);
+			// #ifdef  APP-PLUS
 			this.$refs.vis.positions()
+			// #endif
+
 		},
 		onHide() {
 			// this.isDiy = -1

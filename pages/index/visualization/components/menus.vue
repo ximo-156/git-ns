@@ -112,7 +112,7 @@
 		// box-shadow: $uni-index-box-shadow;
 		.item {
 			margin-top: 26rpx;
-			width: 20%;
+			width: 25%;
 			text-align: center;
 			font-size: 24rpx;
 

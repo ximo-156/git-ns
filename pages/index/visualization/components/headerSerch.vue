@@ -14,7 +14,7 @@
 	</view>
 	<view v-else-if="isIframe" class="header">
 		<view class="serch-wrapper acea-row row-middle">
-			<view class="logo-text">{{position}}</view><uni-icons type="bottom" size="30" />
+			<!-- <view class="logo-text">{{position}}</view><uni-icons type="bottom" size="30" /> -->
 			<view class="logo">
 				<image :src="logoConfig" mode="heightFix"></image>
 			</view>
@@ -116,21 +116,22 @@
 				})
 			},
 			positions() {
-				goPage().then(res => {
-					uni.navigateTo({
-						url: '/pages/goods/goods_search_position/index'
-					})
-				})
-				// uni.chooseLocation({
-				// 	success: function(res) {
-				// 		this.position = res.name;
-				// 		uni.setStorageSync("position", res.name)
-				// 		console.log(uni.getStorageSync("position"))
-				// 		// this.$nextTick({
-				// 		// 	that.$emit()
-				// 		// })
-				// 	}
-				// });
+				// goPage().then(res => {
+				// 	// console.log(123)
+				// 	// uni.navigateTo({
+				// 	// 	url: '/pages/goods/goods_search_position/index'
+				// 	// })
+				// })
+				uni.chooseLocation({
+					success: function(res) {
+						this.position = res.name;
+						uni.setStorageSync("position", res.name)
+						// console.log(uni.getStorageSync("position"))
+						// this.$nextTick({
+						// 	that.$emit()
+						// })
+					}
+				});
 				// // this.$nextTick({
 				// // 	this.$emit('positions', this.position)
 				// // })
@@ -252,7 +253,7 @@
 
 			.logo-text {
 				position: absolute;
-				max-width: 250rpx;
+				max-width: 160rpx;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;

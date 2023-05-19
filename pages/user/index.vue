@@ -226,18 +226,27 @@
 				<!-- 会员菜单 -->
 				<view class="user-menus" style="margin-top: 20rpx;">
 					<view class="menu-title">{{$t('我的服务')}}</view>
-					<view class="list-box">
+					<view>
 						<!-- #ifdef APP-PLUS || H5 -->
-						<block v-for="(item,index) in MyMenus" :key="index">
+						<!-- <block v-for="(item,index) in MyMenus" :key="index">
 							<view class="item" v-if="item.url!='#' && item.url!='/pages/service/index'"
 								@click="goMenuPage(item.url, item.name)">
 								<image :src="item.pic"></image>
 								<text>{{$t(item.name)}}</text>
 							</view>
-						</block>
+						</block> -->
+						<uni-list>
+							<uni-list-item v-for="(item,index) in MyMenus" :key="item.id" :title="item.name"
+								:note="item.name" showArrow :thumb="item.pic" :link="item.url" :to="item.url" />
+						</uni-list>
 						<!-- #endif -->
 						<!-- #ifdef MP -->
-						<block v-for="(item,index) in MyMenus" :key="index">
+						<uni-list>
+							<uni-list-item v-for="(item,index) in MyMenus" :key="item.id" :title="item.name"
+								:note="item.name" showArrow :thumb="item.pic" :link="item.url" :to="item.url" />
+						</uni-list>
+						<!-- <block v-for="(item,index) in MyMenus" :key="index">
+						
 							<view class="item" v-if="item.url!='#' 
 								&& item.url!='/pages/service/index' 
 								&& item.url!='/pages/extension/customer_list/chat' 
@@ -246,7 +255,7 @@
 								<image :src="item.pic"></image>
 								<text>{{$t(item.name)}}</text>
 							</view>
-						</block>
+						</block> -->
 
 						<button class="item" open-type='contact' v-if="routineContact == 1">
 							<image src="/static/images/contact.png"></image>
